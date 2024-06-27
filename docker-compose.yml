@@ -4,9 +4,9 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -24,12 +24,12 @@ services:
       - db
       - redis
     environment:
-      - DB_NAME=mydatabase
-      - DB_USER=myuser
-      - DB_PASSWORD=mypassword
-      - DB_HOST=db
-      - DB_PORT=5432
-      - CELERY_BROKER_URL=redis://redis:6379/0
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASS}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
 
   celery:
     build: .
@@ -40,12 +40,12 @@ services:
       - db
       - redis
     environment:
-      - DB_NAME=mydatabase
-      - DB_USER=myuser
-      - DB_PASSWORD=mypassword
-      - DB_HOST=db
-      - DB_PORT=5432
-      - CELERY_BROKER_URL=redis://redis:6379/0
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASS}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
 
 volumes:
   postgres_data:
